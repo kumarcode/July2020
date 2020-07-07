@@ -2,7 +2,7 @@
 As Orange HRMs administration,
 I would like to manage user profiles within the portal
 
-@mytag
+@talkaboutittomorrow
 Scenario: Add a new admin user
 	Given I login to Orange HRM portal as an administration
 	And I navigate to systems user page

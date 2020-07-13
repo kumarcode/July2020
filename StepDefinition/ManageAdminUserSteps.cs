@@ -29,7 +29,7 @@ namespace OrangeHRMJune2020.StepDefinition
         {
             var systemUsersPage = new SystemUsersPage(driver);
             systemUsersPage.ClickAdd();
-            systemUsersPage.AddAndSaveUser();
+            systemUsersPage.AddAndSaveUser("Kumar");
             systemUsersPage.VerifyUser();
         }
 
@@ -43,6 +43,15 @@ namespace OrangeHRMJune2020.StepDefinition
         public void ThenIShouldBeAbleToDeleteAnExistingUserSuccessfully()
         {
             ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I should be able to create multiple '(.*)' successfully")]
+        public void ThenIShouldBeAbleToCreateMultipleSuccessfully(string employeeName)
+        {
+            var systemUsersPage = new SystemUsersPage(driver);
+            systemUsersPage.ClickAdd();
+            systemUsersPage.AddAndSaveUser(employeeName);
+            systemUsersPage.VerifyUser();
         }
 
 

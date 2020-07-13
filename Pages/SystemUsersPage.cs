@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 namespace OrangeHRMJune2020
@@ -23,14 +24,14 @@ namespace OrangeHRMJune2020
 
         }
 
-        internal void AddAndSaveUser()
+        internal void AddAndSaveUser(string employeeName)
         {
             //Selecting from User Role dropdown box.
             SelectElement userRole = new SelectElement(driver.FindElement(By.Id("systemUser_userType")));
             userRole.SelectByText("Admin");
 
             var empName = driver.FindElement(By.Id("systemUser_employeeName_empName"));
-            empName.SendKeys("a");
+            empName.SendKeys(employeeName);
             var list = driver.FindElements(By.XPath("//div[@class='ac_results']/ul/li"));
             list[0].Click();
 
@@ -44,18 +45,16 @@ namespace OrangeHRMJune2020
 
         }
 
-        [Obsolete]
         internal void VerifyUser()
         {
-            // Implementing Explicit Wait
-
-            IWebElementExtensions.Wait(driver, TimeSpan.FromSeconds(10), By.XPath("//table[@id='resultTable']/tbody/tr"));
-
             var recordsCount = driver.FindElements(By.XPath("//table[@id='resultTable']/tbody/tr")).Count;
             bool recordFound = false;
             for (int i = 1; i <= recordsCount; i++)
             {
                 var recordUserName = driver.FindElement(By.XPath("//table[@id='resultTable']/tbody/tr[" + i + "]/td[2]/a")).Text;
+
+                // option 1 - ignore
+                // Assert.That(recordUserName, Is.EqualTo(userName));
 
                 if (recordUserName == userName)
                 {
@@ -66,10 +65,15 @@ namespace OrangeHRMJune2020
 
             if (recordFound)
             {
+                //Assert.Pass("Record {0} is created successfully and exists in records list", userName);
                 Console.WriteLine("Record {0} is created successfully and exists in records list", userName);
             }
             else
+            {
+                //Assert.Fail("Record {0} is created but does not exists in records list", userName);
                 Console.WriteLine("Record {0} is created but does not exists in records list", userName);
+
+            }
         }
     }
 }

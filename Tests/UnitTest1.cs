@@ -38,7 +38,7 @@ namespace OrangeHRMJune2020
 
             var systemUsersPage = new SystemUsersPage(driver);
             systemUsersPage.ClickAdd();
-            systemUsersPage.AddAndSaveUser();
+            systemUsersPage.AddAndSaveUser("IndustryConnect");
             systemUsersPage.VerifyUser();
         }
        

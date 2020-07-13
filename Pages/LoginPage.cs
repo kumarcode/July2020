@@ -1,5 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OrangeHRMJune2020.Helpers;
+
 namespace OrangeHRMJune2020
 {
     public class LoginPage
@@ -25,6 +27,7 @@ namespace OrangeHRMJune2020
             // login to system
             username.SendKeys("Admin");
             password.SendKeys("admin123");
+            Sync.ElementIsClickable(driver, "Id", "btnLogin", 2);
             loginBtn.Click();
         }
         public void LoginFailure()
